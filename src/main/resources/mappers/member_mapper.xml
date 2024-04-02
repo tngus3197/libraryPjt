@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.goodee.library.memberMapper">
+<!-- 1. 조건은 m_id 일치 여부
+2. 개수를 조회 -->
+	<select id="idDoubleCheck" parameterType="String" resultType="int">
+		SELECT COUNT(*) FROM tbl_member
+		<where>
+			m_id = #{m_id}
+		</where>
+	</select>
+</mapper>
