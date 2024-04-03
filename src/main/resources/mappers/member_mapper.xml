@@ -9,4 +9,9 @@
 			m_id = #{m_id}
 		</where>
 	</select>
+	
+	<insert id="createMember" parameterType="com.goodee.library.member.dto.MemberDto">
+		INSERT INTO tbl_member (m_id, m_pw, m_name, m_mail, m_reg_date)
+		VALUES (#{m_id}, #{m_pw}, #{m_name}, #{m_mail}, NOW())
+	</insert>
 </mapper>

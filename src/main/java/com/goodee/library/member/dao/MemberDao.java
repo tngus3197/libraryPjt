@@ -19,7 +19,7 @@ public class MemberDao {
 	@Autowired
 	private SqlSession sqlSession;
 	
-	private final String namespace = "com.goodee.library.memberMapper";
+	private final String namespace = "com.goodee.library.memberMapper.";
 	
 	public int idDoubleCheck(String m_id) {
 		LOGGER.info("id 중복 검사");
@@ -41,6 +41,13 @@ public class MemberDao {
 	}
 	
 	public int createMember(MemberDto dto) {
-		
+		LOGGER.info("회원 정보 데이터 베이스 추가");
+		int result = 0;
+		try {
+			result = sqlSession.insert(namespace + "createMember", dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
 	}
 }

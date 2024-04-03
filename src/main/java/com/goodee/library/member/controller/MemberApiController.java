@@ -22,7 +22,7 @@ public class MemberApiController {
 	MemberService service;
 	
 	@ResponseBody
-	@PostMapping
+	@PostMapping("/join")
 	public Map<String, String> joinMember(@RequestBody MemberDto dto) {
 		LOGGER.info("회원가입 기능");
 		
