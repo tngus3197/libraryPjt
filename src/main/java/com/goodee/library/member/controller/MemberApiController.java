@@ -1,5 +1,6 @@
 package com.goodee.library.member.controller;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
@@ -30,6 +31,14 @@ public class MemberApiController {
 		// 2. 회원 정보 데이터베이스 등록
 		return service.createMember(dto);
 		// 3. 회원 정보 등록 결과 view에 전달 (json)
+	}
+	
+	@ResponseBody
+	@PostMapping("/login")
+	public Map<String, String> login(@RequestBody MemberDto dto){
+		LOGGER.info("로그인 기능");
+		
+		return service.loginMember(dto);
 	}
 	
 }

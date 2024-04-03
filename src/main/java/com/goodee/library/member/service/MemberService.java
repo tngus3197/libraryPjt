@@ -42,4 +42,21 @@ public class MemberService {
 		// 2. insert 결과를 가지고 map 데이터 재구성
 		return map;
 	}
+
+	public Map<String, String> loginMember(MemberDto dto) {
+		LOGGER.info("로그인 결과 처리");
+		// 1. res_code가 404이고 res_msg가 "오류가 발생하였습니다"인 Map<String, String> 타입인 변수 map 생성
+		// 2. dao에게 MemberDto 정보 전달
+		// 3. dao가 데이터베이스에서 로그인 성공한 회원 정보 return
+		// 4. 로그인 성공한 회원 정보가 null이 아니라면 res_code 200으로
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("res_code", "404");
+		map.put("res_msg", "오류가 발생하였습니다");
+		return map;
+	}
+	
+	public MemberDto SelectMemberOne(MemberDto dto) {
+		return dto;
+		
+	}
 }

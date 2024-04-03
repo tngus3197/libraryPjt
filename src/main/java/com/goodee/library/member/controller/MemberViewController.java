@@ -15,4 +15,10 @@ public class MemberViewController {
 		LOGGER.info("회원가입 페이지 이동");
 		return "member/join";
 	}
+	
+	@GetMapping("/login")
+	public String openLogin() {
+		LOGGER.info("로그인 페이지 이동");
+		return "member/login";
+	}
 }
