@@ -56,16 +56,20 @@ public class MemberDao {
 		return result;
 	}
 	
-	public MemberDto SelectMemberOne(MemberDto dto) {
-		LOGGER.info("아이디 기준 멤버 조회");
-		MemberDto loginedDto = new MemberDto();
-		try {
-			loginedDto = sqlSession.selectOne(namespace + "selectMemberOne", dto.getM_id());
-			if(loginedDto != null) {
-				// 비밀번호 일치 여부 확인
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+	public MemberDto selectMemberOne(MemberDto dto) {
+	      LOGGER.info("아이디 기준 멤버 조회");
+	      MemberDto loginedDto = new MemberDto();
+	      try {
+	         loginedDto = sqlSession.selectOne(namespace+"selectMemberOne",dto.getM_id());
+	         if(loginedDto != null) {
+	            // 비밀번호 일치여부 확인
+	            if(passwordEncoder.matches(dto.getM_pw(), loginedDto.getM_pw())== false) {
+	               loginedDto = null;
+	            }
+	         }
+	      }catch(Exception e) {
+	         e.printStackTrace();
+	      }
+	      return loginedDto;
+	   }
 }

@@ -3,6 +3,8 @@ package com.goodee.library.member.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,10 +37,10 @@ public class MemberApiController {
 	
 	@ResponseBody
 	@PostMapping("/login")
-	public Map<String, String> login(@RequestBody MemberDto dto){
+	public Map<String, String> login(@RequestBody MemberDto dto, HttpSession session){
 		LOGGER.info("로그인 기능");
 		
-		return service.loginMember(dto);
+		return service.loginMember(dto, session);
 	}
 	
 }

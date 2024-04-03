@@ -14,4 +14,17 @@
 		INSERT INTO tbl_member (m_id, m_pw, m_name, m_mail, m_reg_date)
 		VALUES (#{m_id}, #{m_pw}, #{m_name}, #{m_mail}, NOW())
 	</insert>
+	
+	<!-- 
+	1. select
+	2. id가 selectMemberOne
+	3. parameterType이 String
+	4. resultType MemberDto(패키지부터 모두 적기
+	5. m_id를 기준으로 전체 정보 조회 -->
+	<select id="selectMemberOne" parameterType="String" resultType="com.goodee.library.member.dto.MemberDto">
+		SELECT * FROM tbl_member
+		<where>
+			m_id = #{m_id}
+		</where>
+	</select>
 </mapper>

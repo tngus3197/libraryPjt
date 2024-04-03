@@ -75,7 +75,7 @@
 			if(data.res_code == '200'){
 				Swal.fire({
 				  icon: 'success',
-			  	title: '성공' ,
+			  	  title: '성공' ,
 				  text: '구디 도서관에 오신걸 환영합니다.'
 				}).then((result)=>{
 					location.href='/';
