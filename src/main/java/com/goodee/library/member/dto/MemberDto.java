@@ -12,5 +12,5 @@ public class MemberDto {
 	private String m_pw;
 	private String m_name;
 	private String m_mail;
-	
+	private String m_flag;
 }

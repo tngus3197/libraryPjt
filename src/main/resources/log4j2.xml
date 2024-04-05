@@ -32,5 +32,6 @@
 	    <Logger name="com.goodee.library" level="INFO" additivity="false">
 	        <AppenderRef ref="Console_Appender" />
 	    </Logger>
+	    	    
 	</Loggers>
 </Configuration>

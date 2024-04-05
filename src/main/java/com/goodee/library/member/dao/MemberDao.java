@@ -2,6 +2,8 @@ package com.goodee.library.member.dao;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.logging.log4j.LogManager;
@@ -61,15 +63,65 @@ public class MemberDao {
 	      MemberDto loginedDto = new MemberDto();
 	      try {
 	         loginedDto = sqlSession.selectOne(namespace+"selectMemberOne",dto.getM_id());
+	         
 	         if(loginedDto != null) {
+	        	 
 	            // 비밀번호 일치여부 확인
 	            if(passwordEncoder.matches(dto.getM_pw(), loginedDto.getM_pw())== false) {
 	               loginedDto = null;
 	            }
 	         }
+	         
 	      }catch(Exception e) {
 	         e.printStackTrace();
 	      }
 	      return loginedDto;
 	   }
+
+	public List<MemberDto> selectMemberAll() {
+		LOGGER.info("멤버 리스트 조회");
+		List<MemberDto> resultList = new ArrayList<MemberDto>();
+		try {
+			resultList = sqlSession.selectList(namespace+"selectMemberAll");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return resultList;
+	}
+
+	public int updateMember(MemberDto dto) {
+		LOGGER.info("m_no 기준 멤버 업데이트");
+		int result = 0;
+		try {
+			result = sqlSession.update(namespace+"updateMember",dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	public MemberDto selectMemberByNO(long m_no) {
+		LOGGER.info("pk 기준 회원 1명 조회");
+		MemberDto dto = new MemberDto();
+		try {
+			dto = sqlSession.selectOne(namespace+"selectMemberByNO",m_no);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return dto;
+	}
+
+	public int deleteMember(long m_no) {
+		LOGGER.info("m_no 기준 멤버 삭제");
+		int result = 0;
+		try {
+			result = sqlSession.update(namespace+"deleteMember",m_no);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	
 }

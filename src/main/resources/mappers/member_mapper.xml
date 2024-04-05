@@ -27,4 +27,30 @@
 			m_id = #{m_id}
 		</where>
 	</select>
+	
+	<select id="selectMemberAll" resultType="com.goodee.library.member.dto.MemberDto">
+		SELECT * FROM tbl_member
+	</select>
+	
+	<update id="updateMember" parameterType="com.goodee.library.member.dto.MemberDto">
+		UPDATE tbl_member SET m_name = #{m_name}, m_mail = #{m_mail}
+		<where>
+			m_no = #{m_no}
+		</where>
+	</update>
+	
+	<select id="selectMemberByNO" parameterType="Long" resultType="com.goodee.library.member.dto.MemberDto">
+		SELECT * FROM tbl_member
+		<where>
+			m_no = #{m_no}
+		</where>
+	</select>
+	
+	<update id="deleteMember" parameterType="com.goodee.library.member.dto.MemberDto">
+		UPDATE tbl_member SET m_flag = 'N'
+		<where>
+			m_no = #{m_no}
+		</where>
+	</update>
+	
 </mapper>
