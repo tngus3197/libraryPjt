@@ -33,4 +33,8 @@
 			<beans:bean class="com.goodee.library.member.util.MemberLoginInterceptor"/>
 		</interceptor>
 	</interceptors>
+	
+	<!-- 보안을 위해 가상 주소 지정 -->
+	<resources mapping="/libraryUploadImg/**" location="file:///C:/library/upload/"/>
+	
 </beans:beans>
