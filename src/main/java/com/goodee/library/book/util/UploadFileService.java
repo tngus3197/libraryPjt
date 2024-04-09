@@ -46,4 +46,9 @@ public class UploadFileService {
 		}
 	}
 
+	public boolean delete(String b_thumbnail) {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
 }

@@ -3,11 +3,14 @@ package com.goodee.library.book.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -51,7 +54,40 @@ public class BookApiController {
 			map.put("res_msg", "파일 업로드 중 오류가 발생했습니다");
 		}
 		return map;
-	} 
+	}
+	
+	@ResponseBody
+	@PostMapping("/book/{b_no}")
+	public Map<String, String> bookEdit(BookDto dto, @RequestParam("file") MultipartFile file){
+		LOGGER.info("도서 정보 수정 기능");
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("res_code", "404");
+		map.put("res_msg", "도서 수정 중 에러 발생");
+		
+		if("".equals(file.getOriginalFilename()) == false) {
+			// 1. 파일을 서버에 업로드 (새로운 파일)
+			String savedFileName = uploadFileService.upload(file);
+			
+			if(savedFileName != null) {
+				// 2. 기존 파일 삭제
+				if(uploadFileService.delete(dto.getB_thumbnail())) {
+					// 정상 삭제 상태
+					// 3. b_thumbnail 정보 수정
+					dto.setB_thumbnail(savedFileName);
+				}else {
+					map.put("res_msg", "기존 파일 삭제가 실패했습니다");
+				}
+			}else {
+				map.put("res_msg", "파일 업로드 중 오류 발생");
+			}
+		}
+		
+		// 4. 도서 정보 수정
+		// b_thumbnail 여부에 따라 쿼리가 달라짐
+		map = bookService.editBookDetail(dto);
+		
+		return map;
+	}
 	
 	
 	

@@ -50,7 +50,7 @@
                                  <h3 class="product-name"><a href="#">${item.b_name}</a></h3>
                               </div>
                               <div class="add-to-cart">
-                                 <button class="add-to-cart-btn"><i class="fa fa-file-text"></i>Details</button>
+                                 <button onclick="location.href='/book/${item.b_no}'" class="add-to-cart-btn"><i class="fa fa-file-text"></i>Details</button>
                               </div>
                            </div>
                         </div>

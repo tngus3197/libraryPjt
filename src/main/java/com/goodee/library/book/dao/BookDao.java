@@ -64,4 +64,26 @@ public class BookDao {
 		}
 		return resultList;
 	}
+
+	public BookDto bookDetail(long b_no) {
+		LOGGER.info("b_no 기준 도서 정보 조회");
+		BookDto dto = new BookDto();
+		try {
+			dto = sqlSession.selectOne(namespace + "BookDetail", b_no);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return dto;
+	}
+	
+	public int editBookDetail(BookDto dto) {
+		LOGGER.info("b_no 기준 멤버 업데이트");
+		int result = 0;
+		try {
+			result = sqlSession.update(namespace + "editBookDetail", dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
 }

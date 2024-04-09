@@ -54,7 +54,7 @@
             
                                        </div>
                                        <div class="add-to-cart">
-                                          <button class="add-to-cart-btn"><i class="fa fa-file-text"></i>details</button>
+                                          <button onclick="location.href='/book/${item.b_no}'" class="add-to-cart-btn"><i class="fa fa-file-text"></i>details</button>
                                        </div>
                                     </div>
                                  </c:forEach>                                                      
