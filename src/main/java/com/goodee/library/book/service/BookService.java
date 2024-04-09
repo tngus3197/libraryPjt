@@ -1,6 +1,5 @@
 package com.goodee.library.book.service;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,16 +36,21 @@ public class BookService {
 		return map;
 	}
 
-	public int selectBookCount() {
+	public int selectBookCount(String b_name) {
 		LOGGER.info("전체 도서 갯수 조회");
 		int result = 0;
-		result = dao.selectBookCount();
+		result = dao.selectBookCount(b_name);
 		return result;
 	}
 
 	public List<BookDto> selectBookList(BookDto dto) {
 		LOGGER.info("전체 도서 목록 조회");
 		return dao.selectBookList(dto);
+	}
+
+	public List<BookDto> selectBookListToday() {
+		LOGGER.info("오늘 도서 목록 조회");
+		return dao.selectBookListToday();
 	}
 
 	

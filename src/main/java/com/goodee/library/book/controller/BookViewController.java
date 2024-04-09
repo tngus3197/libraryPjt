@@ -30,7 +30,7 @@ public class BookViewController {
 		// int totalData = service로부터 개수 조회
 		LOGGER.info("도서 목록 화면으로 이동");
 		
-		int totalData = service.selectBookCount();
+		int totalData = service.selectBookCount(dto.getB_name());
 		dto.setTotalDate(totalData);
 		List<BookDto> resultList = service.selectBookList(dto);
 		
