@@ -1,6 +1,7 @@
 package com.goodee.library.book.util;
 
 import java.io.File;
+import java.net.URLDecoder;
 import java.util.UUID;
 
 import org.apache.logging.log4j.LogManager;
@@ -12,6 +13,9 @@ import org.springframework.web.multipart.MultipartFile;
 public class UploadFileService {
 
 	private static final Logger LOGGER = LogManager.getLogger(UploadFileService.class);
+	
+	private String uploadDir = "C:\\library\\upload\\";
+	
 	
 	public String upload(MultipartFile file) {
 		LOGGER.info("파일을 서버에 저장");
@@ -26,7 +30,7 @@ public class UploadFileService {
 		
 		String change = uuid.toString().replaceAll("-", "");
 		
-		File savedFile = new File("C:\\library\\upload\\"+change+extension);
+		File savedFile = new File(uploadDir+change+extension);
 		
 		if(savedFile.exists() == false) {
 			savedFile.mkdirs();
@@ -47,8 +51,18 @@ public class UploadFileService {
 	}
 
 	public boolean delete(String b_thumbnail) {
-		// TODO Auto-generated method stub
-		return true;
+		LOGGER.info("삭제 요청");
+		boolean result = false;
+		try {
+			String srcFileName = URLDecoder.decode(b_thumbnail, "utf-8");
+			File file = new File(uploadDir+srcFileName);
+			if(file.exists()) {
+				result = file.delete();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
 	}
 
 }

@@ -3,14 +3,14 @@ package com.goodee.library.book.controller;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.servlet.http.HttpSession;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -89,6 +89,28 @@ public class BookApiController {
 		return map;
 	}
 	
+	// 도서 정보 삭제 메소드
+	@ResponseBody
+	@DeleteMapping("/book/{b_no}")
+	public Map<String, String> bookDelete(@PathVariable("b_no") long b_no){
+		LOGGER.info("도서 정보 삭제 기능");
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("res_code", "404");
+		map.put("res_msg", "도서 삭제 중 에러 발생");
+		String b_thumbnail = bookService.selectFile(b_no);
+		
+		// 1. 데이터 베이스에서 삭제
+		map = bookService.deleteBook(b_no);
+
+		// 2. 파일도 서버에서 삭제
+		if(map.get("res_code").equals("200")) {			
+			uploadFileService.delete(b_thumbnail);
+		}
+					
+		// 3. 최종적으로 수행 결과를 프론트에게 전달
+		return map;
+		
+	}
 	
 	
 }

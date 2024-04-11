@@ -73,6 +73,38 @@ public class BookService {
 		return map;
 	}
 
+	public Map<String, String> deleteBook(long b_no) {
+		LOGGER.info("도서 정보 삭제 요청");
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("res_code", "404");
+		map.put("res_msg", "도서 삭제 중 오류 발생");
+		
+		if(dao.deleteBook(b_no) > 0) {
+			map.put("res_code", "200");
+			map.put("res_msg", "도서 정보가 삭제되었습니다");
+		}
+		
+		return map;
+	}
+
+	public String selectFile(long b_no) {
+		// TODO Auto-generated method stub
+		return dao.selectFile(b_no);
+	}
+
+//	public BookDto DeleteBook(BookDto dto) {
+//		LOGGER.info("도서 정보 삭제");
+//		Map<String, String> map = new HashMap<String, String>();
+//		map.put("res_code", "404");
+//		map.put("res_msg", "도서 정보 삭제 중 오류 발생");
+//		
+//		if (dao.bookDelete(dto)>0) {
+//			map.put("res_code", "200");
+//			map.put("res_msg", "도서 정보가 삭제되었습니다");	
+//		}
+//		return map;
+//	}
+
 	
 	
 	

@@ -86,4 +86,26 @@ public class BookDao {
 		}
 		return result;
 	}
+
+	public int deleteBook(long b_no) {
+		LOGGER.info("b_no 기준 도서 삭제");
+		int result = 0;
+		try {
+			result = sqlSession.delete(namespace + "deleteBook",b_no);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	public String selectFile(long b_no) {
+		LOGGER.info("b_no 기준 파일 조회");
+		String result = "";
+		try {
+			result = sqlSession.selectOne(namespace + "selectFile", b_no);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
 }
